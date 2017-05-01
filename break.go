@@ -5,7 +5,7 @@ import(
 )
 
 
-func SingleByteXor(data []byte) (byte, string) {
+func BreakSingleByteXor(data []byte) (byte, string) {
     low := 1000.0
     msg := ""
     key := byte(0)
@@ -14,7 +14,7 @@ func SingleByteXor(data []byte) (byte, string) {
     // message, and scoring it. Lowest score wins.
     for i:=0; i<256; i++ {
         k := byte(i)
-        dec := SingleByte(data, k)
+        dec := XOR(data, k)
         str := strings.ToLower(string(dec))
         total := ScoreEnglish(str)
 
