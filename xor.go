@@ -5,7 +5,7 @@ import (
 
 
 func XOR(b1, b2 []byte) []byte {
-    result = make([]byte, len(b1))
+    result := make([]byte, len(b1))
 
     if len(b2) == 1 {
         // b2 is a single byte. XOR each byte of b1 with the byte in b2.
