@@ -1,7 +1,7 @@
 package xor
 
 import (
-    errors
+    "errors"
 )
 
 
