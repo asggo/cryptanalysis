@@ -5,7 +5,7 @@ import(
 )
 
 
-func BreakSingleByteXor(data []byte) (byte, string) {
+func BreakSingleByteXor(data []byte) (float64, byte, string) {
     low := 1000.0
     msg := ""
     key := byte(0)
@@ -16,14 +16,14 @@ func BreakSingleByteXor(data []byte) (byte, string) {
         k := []byte{byte(i)}
         dec := XOR(data, k)
         str := strings.ToLower(string(dec))
-        total := ScoreEnglish(str)
+        score := ScoreEnglish(str)
 
-        if total < low {
-            low = total
+        if score < low {
+            low = score
             msg = string(dec)
             key = k[0]
         }
     }
 
-    return key, msg
+    return low, key, msg
 }
