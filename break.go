@@ -13,7 +13,7 @@ func BreakSingleByteXor(data []byte) (byte, string) {
     // Bruteforce the key by XORing each possible key, analyzing the decrypted
     // message, and scoring it. Lowest score wins.
     for i:=0; i<256; i++ {
-        k := byte(i)
+        k := []byte{byte(i)}
         dec := XOR(data, k)
         str := strings.ToLower(string(dec))
         total := ScoreEnglish(str)
@@ -21,7 +21,7 @@ func BreakSingleByteXor(data []byte) (byte, string) {
         if total < low {
             low = total
             msg = string(dec)
-            key = k
+            key = k[0]
         }
     }
 
