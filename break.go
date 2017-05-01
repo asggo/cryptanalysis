@@ -21,7 +21,7 @@ func BreakSingleByteXor(data []byte) (float64, byte, string) {
         if score < low {
             low = score
             msg = string(dec)
-            key = k[0]
+            key = k
         }
     }
 
