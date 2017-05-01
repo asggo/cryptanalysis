@@ -1,10 +1,11 @@
 package cryptanalysis
 
 import(
+    "strings"
 )
 
 
-func SingleByteXor(e string) (byte, string) {
+func SingleByteXor(data []byte) (byte, string) {
     low := 1000.0
     msg := ""
     key := byte(0)
@@ -13,8 +14,9 @@ func SingleByteXor(e string) (byte, string) {
     // message, and scoring it. Lowest score wins.
     for i:=0; i<256; i++ {
         k := byte(i)
-        dec := SingleByte(encoding.DecodeHexStr(e), k)
-        total := analysis.Score(strings.ToLower(dec))
+        dec := SingleByte(data, k)
+        str := strings.ToLower(string(dec))
+        total := ScoreEnglish(str)
 
         if total < low {
             low = total

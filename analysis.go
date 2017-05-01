@@ -61,7 +61,7 @@ func Hamming(s1, s2 []byte) (int, error) {
 
     if len(s1) != len(s2) {
         e := errors.New("Byte arrays are unequal. Cannot calculate Hamming distance.")
-        return nil, e
+        return 0, e
     }
 
     for i, _ := range s1 {
@@ -86,10 +86,10 @@ func KeyLength(data []byte) (int, error) {
         ham := 0
 
         for i:=0; i<10; i++ {
-            val, err := hamming(chunks[i], chunks[i+1])
+            val, err := Hamming(chunks[i], chunks[i+1])
 
             if err != nil {
-                return nil, err
+                return 0, err
             }
 
             ham = ham + val

@@ -1,9 +1,6 @@
 package cryptanalysis
 
 import (
-    "fmt"
-    "math"
-
 )
 
 func EncryptXor(plain, key []byte) []byte {
