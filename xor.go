@@ -1,4 +1,4 @@
-package xor
+package cryptanalysis
 
 import (
     "errors"
@@ -21,4 +21,15 @@ func ByteArrays(b1, b2 []byte) ([]byte, error) {
     }
 
     return result, nil
+}
+
+
+func SingleByte(b1 []byte, b2 byte) []byte {
+    result := make([]byte, len(b1))
+
+    for i, _ := range b1 {
+        result[i] = b1[i] ^ b2
+    }
+
+    return result
 }
