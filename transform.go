@@ -4,11 +4,14 @@ import ()
 
 
 func Chunk(data []byte, size int) [][]byte {
+    count := len(data) - size
     var chunks [][]byte
 
-    for i:=0; i<len(data); i=i+size {
+    for i:=0; i<count; i=i+size {
         chunks = append(chunks, data[i:i+size])
     }
+
+    chunks = append(chunks, data[count*size:])
 
     return chunks
 }
