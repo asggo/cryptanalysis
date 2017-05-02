@@ -5,7 +5,7 @@ import(
 )
 
 
-func BreakSingleByteXor(data []byte) (float64, byte, string) {
+func BreakSingleByteXor(data []byte) (float64, int, string) {
     low := 1000.0
     msg := ""
     key := byte(0)
@@ -25,5 +25,5 @@ func BreakSingleByteXor(data []byte) (float64, byte, string) {
         }
     }
 
-    return low, key, msg
+    return low, int(key), msg
 }
