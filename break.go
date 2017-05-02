@@ -17,7 +17,6 @@ func BreakSingleByteXor(data []byte) (float64, byte, string) {
         k := byte(i)
         dec := XorArrayByte(data, k)
         str := strings.ToLower(string(dec))
-        fmt.Println(str)
         score := ScoreEnglish(str)
 
         if score < low {
