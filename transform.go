@@ -4,14 +4,15 @@ import ()
 
 
 func Chunk(data []byte, size int) [][]byte {
-    count := len(data) - size
     var chunks [][]byte
 
-    for i:=0; i<count; i=i+size {
-        chunks = append(chunks, data[i:i+size])
+    if len(data) % size != 0 {
+        data = PadPkcs7(data, size)
     }
 
-    chunks = append(chunks, data[count*size:])
+    for i:=0; i<len(data); i=i+size {
+        chunks = append(chunks, data[i:i+size])
+    }
 
     return chunks
 }
