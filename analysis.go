@@ -107,7 +107,7 @@ func KeyLength(data []byte) (int, error) {
 }
 
 
-func ScoreEcb (data []byte, block_size int) float64 {
+func ScoreEcb(data []byte, block_size int) float64 {
     chunks := Chunk(data, block_size)
     temp := make(map[string] int)
 
@@ -118,5 +118,5 @@ func ScoreEcb (data []byte, block_size int) float64 {
 
     // Return the ratio of unique blocks to total blocks. The smaller the ratio
     // the more likely it is ECB.
-    return float64(len(temp)) / float64(len(data))
+    return float64(len(temp)) / float64(len(chunks))
 }
