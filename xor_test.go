@@ -1,75 +1,69 @@
 package cryptanalysis
 
 import (
-    "bytes"
-    "testing"
+	"bytes"
+	"testing"
 )
 
-
 type xorbyte struct {
-    b1 byte
-    b2 byte
-    result byte
+	b1     byte
+	b2     byte
+	result byte
 }
-
 
 type xorarray struct {
-    a1 []byte
-    a2 []byte
-    result []byte
+	a1     []byte
+	a2     []byte
+	result []byte
 }
-
 
 type xorarraybyte struct {
-    a1 []byte
-    b1 byte
-    result []byte
+	a1     []byte
+	b1     byte
+	result []byte
 }
-
 
 func TestXorBytes(t *testing.T) {
-    var tests = []xorbyte{
-        { 0, 0, 0 },
-        { 0, 255, 255 },
-        { 128, 128, 0 },
-    }
+	var tests = []xorbyte{
+		{0, 0, 0},
+		{0, 255, 255},
+		{128, 128, 0},
+	}
 
-    for _, test := range tests {
-        xor := XorBytes(test.b1, test.b2)
-        if xor != test.result {
-            t.Error("Expected", test.result, "got", xor)
-        }
-    }
+	for _, test := range tests {
+		xor := XorBytes(test.b1, test.b2)
+		if xor != test.result {
+			t.Error("Expected", test.result, "got", xor)
+		}
+	}
 }
-
 
 func TestXorArrayByte(t *testing.T) {
-    var tests = []xorarraybyte{
-        { []byte{0, 0, 0}, 0, []byte{0, 0, 0} },
-        { []byte{0, 0, 0}, 255, []byte{255, 255, 255} },
-        { []byte{128, 128, 128}, 128, []byte{0, 0, 0} },
-    }
+	var tests = []xorarraybyte{
+		{[]byte{0, 0, 0}, 0, []byte{0, 0, 0}},
+		{[]byte{0, 0, 0}, 255, []byte{255, 255, 255}},
+		{[]byte{128, 128, 128}, 128, []byte{0, 0, 0}},
+	}
 
-    for _, test := range tests {
-        xor := XorArrayByte(test.a1, test.b1)
-        if bytes.Compare(xor, test.result) != 0 {
-            t.Error("Expected", test.result, "got", xor)
-        }
-    }
+	for _, test := range tests {
+		xor := XorArrayByte(test.a1, test.b1)
+		if bytes.Compare(xor, test.result) != 0 {
+			t.Error("Expected", test.result, "got", xor)
+		}
+	}
 }
 
-
 func TestXorArrays(t *testing.T) {
-    var tests = []xorarray{
-        { []byte{0, 0, 0}, []byte{0, 0, 0}, []byte{0, 0, 0} },
-        { []byte{0, 0, 0}, []byte{255, 255, 255}, []byte{255, 255, 255} },
-        { []byte{128, 128, 128}, []byte{128, 128, 128}, []byte{0, 0, 0} },
-    }
+	var tests = []xorarray{
+		{[]byte{0, 0, 0}, []byte{0, 0, 0}, []byte{0, 0, 0}},
+		{[]byte{0, 0, 0}, []byte{255, 255, 255}, []byte{255, 255, 255}},
+		{[]byte{128, 128, 128}, []byte{128, 128, 128}, []byte{0, 0, 0}},
+	}
 
-    for _, test := range tests {
-        xor := XorArrays(test.a1, test.a2)
-        if bytes.Compare(xor, test.result) != 0 {
-            t.Error("Expected", test.result, "got", xor)
-        }
-    }
+	for _, test := range tests {
+		xor := XorArrays(test.a1, test.a2)
+		if bytes.Compare(xor, test.result) != 0 {
+			t.Error("Expected", test.result, "got", xor)
+		}
+	}
 }
