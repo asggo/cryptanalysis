@@ -63,6 +63,7 @@ func TestKeyLength(t *testing.T) {
         0x33, 0x09, 0x7c, 0x99, 0x8e, 0x5d, 0xbb, 0xce, 0xca, 0x62, 0x82, 0x45,
         0x50, 0x78, 0xe9, 0x05, 0xe1, 0xff, 0xde}
 
+    encrypted = PadPkcs7(encrypted, 16)
 	key_length, err := KeyLength(encrypted)
 
 	if err != nil {
@@ -78,8 +79,8 @@ func TestKeyLength(t *testing.T) {
 func TestScoreEcb(t *testing.T) {
 	ecbscores := []ecbscore{
 		{[]byte("abcdefghijklmnopqrst"), 5, 1.0},
-		{[]byte("abcdeabcdeabcdeabcde"), 5, 0.4},
-		{[]byte("abcdeabcdeabcdeedcba"), 5, 0.6},
+		{[]byte("abcdeabcdeabcdeabcde"), 5, 0.25},
+		{[]byte("abcdeabcdeabcdeedcba"), 5, 0.5},
 	}
 
 	for _, test := range ecbscores {

@@ -18,8 +18,8 @@ func TestChunk(t *testing.T) {
 	res4 = append(res4, []byte("DATA"))
 	res4 = append(res4, []byte("\x04\x04\x04\x04"))
 
-	c3 := Chunk(data, 3)
-	c4 := Chunk(data, 4)
+	c3 := Chunk(PadPkcs7(data, 9), 3)
+	c4 := Chunk(PadPkcs7(data, 12), 4)
 
 	for i, _ := range res3 {
 		if bytes.Compare(res3[i], c3[i]) != 0 {
