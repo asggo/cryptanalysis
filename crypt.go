@@ -98,7 +98,6 @@ func EncryptCbc(plaintext, key, iv []byte) ([]byte, error) {
 
 func DecryptCbc(ciphertext, key, iv []byte) ([]byte, error) {
     plaintext := make([]byte, 0)
-    chunks := Chunk(plaintext, block_size)
 
     if len(iv) != block_size {
         return plaintext, errors.New("IV must be 16 bytes long.")
@@ -109,6 +108,7 @@ func DecryptCbc(ciphertext, key, iv []byte) ([]byte, error) {
         return plaintext, err
     }
 
+    chunks := Chunk(ciphertext, block_size)
     for _, chunk := range chunks {
         temp := make([]byte, block_size)
 
