@@ -113,7 +113,7 @@ func DecryptCbc(ciphertext, key, iv []byte) ([]byte, error) {
         temp := make([]byte, block_size)
 
         cbc.Decrypt(temp, chunk)
-        chunk = XorArrays(temp, iv)
+        temp = XorArrays(temp, iv)
         iv = chunk
 
         plaintext = append(plaintext, temp...)
