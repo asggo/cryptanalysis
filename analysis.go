@@ -8,10 +8,7 @@ import (
 )
 
 func ScoreEnglish(data string) float64 {
-	/*
-	   Score the string as English using chi-squared. We send a lower-cased string
-	   to this function so only have to worry about counting lowercase letters.
-	*/
+    data = strings.ToLower(data)
 	counts := make(map[rune]int)
 	chi2 := 0.0
 	alpha := "abcdefghijklmnopqrstuvwxyz "
@@ -23,6 +20,7 @@ func ScoreEnglish(data string) float64 {
 		'p': 0.01929, 'q': 0.00095, 'r': 0.05987, 's': 0.06327, 't': 0.09056,
 		'u': 0.02758, 'v': 0.00978, 'w': 0.02360, 'x': 0.00150, 'y': 0.01974,
 		'z': 0.00074, ' ': 0.23200}
+
 
 	// Get a count of all the letters and the total number of letters.
 	for _, c := range data {
@@ -81,6 +79,8 @@ func KeyLength(data []byte) (int, error) {
 	for s := 2; s <= 40; s++ {
 		chunks := Chunk(data, s)
 		ham := 0
+
+        if len(data)/s < 10 { break }
 
 		for i := 0; i < 10; i++ {
 			val, err := Hamming(chunks[i], chunks[i+1])
