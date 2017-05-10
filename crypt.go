@@ -70,7 +70,7 @@ func DecryptEcb(ciphertext, key []byte) ([]byte, error) {
 
 func EncryptCbc(plaintext, key, iv []byte) ([]byte, error) {
     ciphertext := make([]byte, 0)
-    chunks := Chunk(plaintext, block_size)
+    plaintext = PadPkcs7(plaintext, block_size)
 
     if len(iv) != block_size {
         return ciphertext, errors.New("IV must be 16 bytes long.")
@@ -81,13 +81,13 @@ func EncryptCbc(plaintext, key, iv []byte) ([]byte, error) {
         return ciphertext, err
     }
 
+    chunks := Chunk(plaintext, block_size)
     for _, chunk := range chunks {
-        chunk = PadPkcs7(chunk, block_size)
         temp := make([]byte, block_size)
 
         chunk = XorArrays(chunk, iv)
-        iv = chunk
         cbc.Encrypt(temp, chunk)
+        iv = temp
 
         ciphertext = append(ciphertext, temp...)
     }
