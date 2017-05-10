@@ -68,10 +68,13 @@ func DecryptEcb(ciphertext, key []byte) ([]byte, error) {
 }
 
 
-func EncryptCbc(plaintext, key []byte) ([]byte, error) {
-    iv := make([]byte, block_size)
+func EncryptCbc(plaintext, key, iv []byte) ([]byte, error) {
     ciphertext := make([]byte, 0)
     chunks := Chunk(plaintext, block_size)
+
+    if len(iv) != block_size {
+        return ciphertext, errors.New("IV must be 16 bytes long.")
+    }
 
     cbc, err := aes.NewCipher(key)
     if err != nil {
@@ -93,10 +96,13 @@ func EncryptCbc(plaintext, key []byte) ([]byte, error) {
 }
 
 
-func DecryptCbc(ciphertext, key []byte) ([]byte, error) {
-    iv := make([]byte, block_size)
+func DecryptCbc(ciphertext, key, iv []byte) ([]byte, error) {
     plaintext := make([]byte, 0)
     chunks := Chunk(plaintext, block_size)
+
+    if len(iv) != block_size {
+        return plaintext, errors.New("IV must be 16 bytes long.")
+    }
 
     cbc, err := aes.NewCipher(key)
     if err != nil {
