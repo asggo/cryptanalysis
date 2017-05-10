@@ -1,7 +1,6 @@
 package cryptanalysis
 
 import (
-	"strings"
 )
 
 func BreakSingleByteXor(data []byte) (float64, byte, string) {
@@ -14,8 +13,7 @@ func BreakSingleByteXor(data []byte) (float64, byte, string) {
 	for i := 0; i < 256; i++ {
 		k := byte(i)
 		dec := XorArrayByte(data, k)
-		str := strings.ToLower(string(dec))
-		score := ScoreEnglish(str)
+		score := ScoreEnglish(string(dec))
 
 		if score < low {
 			low = score
