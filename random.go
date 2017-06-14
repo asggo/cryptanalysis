@@ -35,6 +35,7 @@ func BytesToInt(array []byte) (uint64, error) {
 }
 
 
+// Return a random integer in the range [start, end)
 func RandomIntRange(start, end uint64) (uint64, error) {
     var val uint64
 	val = 0
