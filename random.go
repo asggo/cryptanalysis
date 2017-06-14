@@ -18,21 +18,18 @@ func RandomBytes(size int) ([]byte, error) {
 }
 
 
-func BytesToInt(b []byte) (uint64, error) {
+func BytesToInt(array []byte) (uint64, error) {
+	if len(array) == 0 || len(array) > 8 {
+        return uint64(0), errors.New("Need 1 to 8 bytes to create integer.")
+    }
+
     var integer uint64
-	var size uint
-	var i uint
+    size := len(array)
 
-	integer = 0
-    size = uint(len(b) - 1)
-
-    if len(b) == 0 || len(b) > 8 {
-        return integer, errors.New("Need 1 to 8 bytes to create integer.")
-    }
-
-    for i = 0; i < size; i++ {
-        integer = integer + (uint64(b[i]) << ((size - i) * 8))
-    }
+    for i, b := range array {
+		shift := uint64((size - i - 1) * 8)
+		integer |= uint64(b) << shift
+	}
 
     return integer, nil
 }

@@ -30,6 +30,11 @@ func TestBytesToInt(t *testing.T) {
 	var tests = []byteint{
 		{[]byte{128,0,0,0,0,0,0,0}, 9223372036854775808},
 		{[]byte{0,0,0,0,128,0,0,0}, 2147483648},
+		{[]byte{0,0,0,0,0,0,0,1}, 1},
+		{[]byte{0,0,0,0,0,3}, 3},
+		{[]byte{0,0,0,5}, 5},
+
+
 	}
 
 	_, err := BytesToInt([]byte{})
