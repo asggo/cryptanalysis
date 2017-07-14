@@ -69,23 +69,28 @@ func DecryptEcb(ciphertext, key []byte) ([]byte, error) {
 
 
 func EncryptCbc(plaintext, key, iv []byte) ([]byte, error) {
+    null := make([]byte, 0)
     ciphertext := make([]byte, 0)
     plaintext = PadPkcs7(plaintext, block_size)
 
     if len(iv) != block_size {
-        return ciphertext, errors.New("IV must be 16 bytes long.")
+        return null, errors.New("IV must be 16 bytes long.")
     }
 
     cbc, err := aes.NewCipher(key)
     if err != nil {
-        return ciphertext, err
+        return null, err
     }
 
     chunks := Chunk(plaintext, block_size)
     for _, chunk := range chunks {
         temp := make([]byte, block_size)
 
-        chunk = XorArrays(chunk, iv)
+        chunk, err = XorArrays(chunk, iv)
+        if err != nil {
+            return null, err
+        }
+
         cbc.Encrypt(temp, chunk)
         iv = temp
 
@@ -97,15 +102,16 @@ func EncryptCbc(plaintext, key, iv []byte) ([]byte, error) {
 
 
 func DecryptCbc(ciphertext, key, iv []byte) ([]byte, error) {
+    null := make([]byte, 0)
     plaintext := make([]byte, 0)
 
     if len(iv) != block_size {
-        return plaintext, errors.New("IV must be 16 bytes long.")
+        return null, errors.New("IV must be 16 bytes long.")
     }
 
     cbc, err := aes.NewCipher(key)
     if err != nil {
-        return plaintext, err
+        return null, err
     }
 
     chunks := Chunk(ciphertext, block_size)
@@ -113,7 +119,10 @@ func DecryptCbc(ciphertext, key, iv []byte) ([]byte, error) {
         temp := make([]byte, block_size)
 
         cbc.Decrypt(temp, chunk)
-        temp = XorArrays(temp, iv)
+        temp, err = XorArrays(temp, iv)
+        if err != nil {
+            return null, err
+        }
         iv = chunk
 
         plaintext = append(plaintext, temp...)
