@@ -58,21 +58,21 @@ func TestXorArrays(t *testing.T) {
 		{[]byte{0, 0, 0}, []byte{0, 0, 0}, []byte{0, 0, 0}},
 		{[]byte{0, 0, 0}, []byte{255, 255, 255}, []byte{255, 255, 255}},
 		{[]byte{128, 128, 128}, []byte{128, 128, 128}, []byte{0, 0, 0}},
-        {[]byte{128, 128}, []byte{128}, []byte("Byte arrays have different lengths: 2, 1")},
+		{[]byte{128, 128}, []byte{128}, []byte("Byte arrays have different lengths: 2, 1")},
 	}
 
 	for _, test := range tests {
 		xor, err := XorArrays(test.a1, test.a2)
 
-        if err != nil {
-            result := []byte(err.Error())
-            if bytes.Compare(result, test.result) != 0 {
-                t.Error("Expected", test.result, "got", result)
-            }
-        } else {
-            if bytes.Compare(xor, test.result) != 0 {
-			    t.Error("Expected", test.result, "got", xor)
-            }
+		if err != nil {
+			result := []byte(err.Error())
+			if bytes.Compare(result, test.result) != 0 {
+				t.Error("Expected", test.result, "got", result)
+			}
+		} else {
+			if bytes.Compare(xor, test.result) != 0 {
+				t.Error("Expected", test.result, "got", xor)
+			}
 		}
 	}
 }

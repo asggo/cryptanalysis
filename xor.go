@@ -1,8 +1,8 @@
 package cryptanalysis
 
 import (
-    "fmt"
-    "errors"
+	"errors"
+	"fmt"
 )
 
 func XorBytes(b1, b2 byte) byte {
@@ -24,7 +24,7 @@ func XorArrays(b1, b2 []byte) ([]byte, error) {
 
 	if len(b1) != len(b2) {
 		e := fmt.Sprintf("Byte arrays have different lengths: %d, %d", len(b1), len(b2))
-        return result, errors.New(e)
+		return result, errors.New(e)
 	}
 
 	for i, _ := range b1 {
