@@ -1,9 +1,8 @@
 package cryptanalysis
 
-import (
-)
+import ()
 
-func BreakSingleByteXor(data []byte) (float64, byte, string) {
+func BreakSingleByteXor(data []byte, chi AlphabetFrequency) (float64, byte, string) {
 	low := 1000.0
 	msg := ""
 	key := byte(0)
@@ -13,7 +12,7 @@ func BreakSingleByteXor(data []byte) (float64, byte, string) {
 	for i := 0; i < 256; i++ {
 		k := byte(i)
 		dec := XorArrayByte(data, k)
-		score := ScoreEnglish(string(dec))
+		score := ScoreAlphabet(string(dec), chi)
 
 		if score < low {
 			low = score

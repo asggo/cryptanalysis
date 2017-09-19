@@ -12,7 +12,7 @@ func TestBreakSingleByteXor(t *testing.T) {
 		226, 233, 224, 165, 231, 252, 241, 224, 165, 253, 234, 247, 165,
 		231, 247, 224, 228, 238, 228, 226, 224, 171}
 
-	_, dec_key, plain := BreakSingleByteXor(cipher)
+	_, dec_key, plain := BreakSingleByteXor(cipher, ChiAlphaSpace)
 
 	if dec_key != enc_key {
 		t.Error("Expected", enc_key, "got", dec_key)
