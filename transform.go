@@ -48,3 +48,22 @@ func PadPkcs7(data []byte, block_size int) []byte {
 
 	return data
 }
+
+func CaesarShift(data string, shift int) string {
+	var plain []byte
+
+	for _, c := range data {
+		i := int(c)
+
+		switch {
+		case i >= 97:
+			i = (((i - 97) + shift) % 26) + 97
+		default:
+			i = (((i - 65) + shift) % 26) + 65
+		}
+
+		plain = append(plain, byte(i))
+	}
+
+	return string(plain)
+}

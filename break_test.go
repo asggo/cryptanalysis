@@ -22,3 +22,14 @@ func TestBreakSingleByteXor(t *testing.T) {
 		t.Error("Expected", data, "got", plain)
 	}
 }
+
+func TestBreakCaesarShift(t *testing.T) {
+	str := "YellowSubmarine"
+	shifted := "LryybjFhoznevar"
+
+	_, _, plain := BreakCaesarShift(shifted, ChiAlpha)
+
+	if plain != str {
+		t.Error("Expected", str, "got", plain)
+	}
+}

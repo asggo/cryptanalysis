@@ -61,3 +61,19 @@ func TestPadPkcs7(t *testing.T) {
 		t.Error("Expected", pad, "got", pkcs)
 	}
 }
+
+func TestCaesarShift(t *testing.T) {
+	str := "YellowSubmarine"
+	shifted := "LryybjFhoznevar"
+	test := CaesarShift(str, 13)
+
+	if test != shifted {
+		t.Error("Expected", shifted, "got", test)
+	}
+
+	test = CaesarShift(shifted, 13)
+
+	if test != str {
+		t.Error("Expected", str, "got", test)
+	}
+}
