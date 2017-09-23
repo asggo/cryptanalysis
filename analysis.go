@@ -95,7 +95,8 @@ func KeyLength(data []byte) (int, error) {
 	size := 0
 
 	for s := 2; s <= 40; s++ {
-		chunks := Chunk(data, s)
+		padded := PadPkcs7(data, s)
+		chunks := Chunk(padded, s)
 		ham := 0
 
 		if len(data)/s < 10 {
